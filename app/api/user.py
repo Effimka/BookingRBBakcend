@@ -7,3 +7,8 @@ router = APIRouter()
 async def create_user_api(user: UserCreate):
     print(f"User comming email = {user.email} pass = {user.password}")
     return {"id": 1, "name": "tix", "email" : user.email}
+
+@router.post("/login", response_model=UserOut)
+async def login_user_api(user: UserCreate):
+    print(f"User comming email = {user.email} pass = {user.password}")
+    return {"id": 1, "name": "tix", "email" : user.email}
