@@ -4,6 +4,9 @@ from typing import Optional
 class UserCreate(BaseModel):
     email: str
     password: str
+    
+    class Config:
+        from_attributes = True
 
 class UserOut(BaseModel):
     id: int
@@ -12,4 +15,4 @@ class UserOut(BaseModel):
     phone_number: Optional[str] = None
 
     class Config:
-        orm_mode = True
+        from_attributes = True
