@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from api import user
+from api import userAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
@@ -20,4 +20,4 @@ app.add_middleware(
 async def startup():
     print("Server started and wait POST-requests...")
 
-app.include_router(user.router)
+app.include_router(userAPI.router)
