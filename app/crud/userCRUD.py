@@ -11,7 +11,8 @@ async def create_user(user: UserCreate, db: AsyncSession):
         db.add(db_user)
         await db.commit()
         await db.refresh(db_user)
-        return UserOut.model_validate(db_user)
+        return db_user.id, UserOut.model_validate(db_user)
+    
     except IntegrityError:
         await db.rollback()
         raise HTTPException(
@@ -34,19 +35,13 @@ async def get_user_by_email(user: UserCreate, db: AsyncSession):
         result = await db.execute(stmt)
         existing_user = result.scalar_one_or_none()
 
-        #existing_user = await db.query(UserModel).filter(
-        #   UserModel.email == user.email,
-        #).first()
-        print("existing_user after db req")
-
-        print(existing_user)
         if existing_user.password != user.password:
             raise HTTPException(
                 status_code=404,
                 detail="User not found or incorrect password"
             )
         
-        return UserOut.model_validate(existing_user)
+        return existing_user.id, UserOut.model_validate(existing_user)
         
     except Exception as e:
         raise HTTPException(

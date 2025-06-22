@@ -1,6 +1,23 @@
 from datetime import datetime, timedelta, timezone
 from jose import jwt, JWTError
+from fastapi import HTTPException
 from config import SECRET_KEY, ACCESS_TOKEN_EXPIRE_MINUTES, ALGORITHM_JWT, REFRESH_TOKEN_EXPIRE_DAYS
+
+def verify_refresh_token(refreshToken: str):
+    try:
+        payload = jwt.decode(
+            refreshToken,
+            SECRET_KEY,
+            algorithms=[ALGORITHM_JWT]
+        )
+        if payload.get("type") != "refresh":
+             raise HTTPException(status_code=401, detail="Invalid token type")
+        
+        return payload
+    except jwt.ExpiredSignatureError:
+        raise HTTPException(status_code=401, detail="Refresh token expired")
+    except jwt.InvalidTokenError:
+        raise HTTPException(status_code=401, detail="Invalid refresh token")
 
 def create_access_token(data: dict):
     to_encode = data.copy()

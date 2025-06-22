@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 from api import userAPI
+from api import refreshTokenAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
@@ -21,3 +22,4 @@ async def startup():
     print("Server started and wait POST-requests...")
 
 app.include_router(userAPI.router)
+app.include_router(refreshTokenAPI.router)
