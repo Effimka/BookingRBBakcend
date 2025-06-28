@@ -14,7 +14,7 @@ async def create_user_api(user: UserCreate, response: Response, db: AsyncSession
     accesToken = create_access_token(data={"sub":str(userId)})
     refreshToken = create_refresh_token(data={"sub":str(userId)})
     setResponseRefreshToken(response, refreshToken)
-    return UserOutWithToken(userOutData, accesToken)
+    return UserOutWithToken(userBaseData=userOutData, accessToken=accesToken)
 
 @router.post("/login-common", response_model=UserOutWithToken)
 async def login_user_api(user: UserCreate, response: Response, db: AsyncSession  = Depends(get_db)):
@@ -22,4 +22,4 @@ async def login_user_api(user: UserCreate, response: Response, db: AsyncSession 
     accesToken = create_access_token(data={"sub":str(userId)})
     refreshToken = create_refresh_token(data={"sub":str(userId)})
     setResponseRefreshToken(response, refreshToken)
-    return UserOutWithToken(userOutData, accesToken)
+    return UserOutWithToken(userBaseData=userOutData, accessToken=accesToken)
