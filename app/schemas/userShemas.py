@@ -20,3 +20,8 @@ class UserOutWithToken(BaseModel):
     userBaseData: UserOut
     accessToken: str
 
+class UserUpdatePersonalData(BaseModel):
+    display_name: Optional[str]
+    email: str
+    phone: Optional[str]
+    passport_data: Optional[str] #TODO stucture
