@@ -21,7 +21,6 @@ class UserOutWithToken(BaseModel):
     accessToken: str
 
 class UserUpdatePersonalData(BaseModel):
-    display_name: Optional[str]
+    viewname: Optional[str]
     email: str
-    phone: Optional[str]
-    passport_data: Optional[str] #TODO stucture
+    phone_number: Optional[str]

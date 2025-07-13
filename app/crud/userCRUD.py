@@ -28,9 +28,6 @@ async def create_user(user: UserCreate, db: AsyncSession):
 
 async def get_user_by_email(user: UserCreate, db: AsyncSession):
     try:
-        print("existing_user try to get from db")
-        print(user)
-
         stmt = select(UserModel).where(UserModel.email == user.email)
         result = await db.execute(stmt)
         existing_user = result.scalar_one_or_none()
@@ -58,7 +55,7 @@ async def update_user_personal_data(userId: int, data: dict, db: AsyncSession):
         if not user:
             return None
         for key, value in data.items():
-            if hasattr(user, key) and value is not None:
+            if hasattr(user, key) and value is not None and value is not "":
                 setattr(user, key, value)
 
         await db.commit()
