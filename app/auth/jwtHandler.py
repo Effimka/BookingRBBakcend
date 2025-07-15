@@ -5,10 +5,7 @@ from config import SECRET_KEY, ACCESS_TOKEN_EXPIRE_MINUTES, ALGORITHM_JWT, REFRE
 
 def verify_refresh_token(refreshToken: str):
     try:
-        payload = jwt.decode(
-            refreshToken,
-            SECRET_KEY,
-            algorithms=[ALGORITHM_JWT]
+        payload = jwt.decode(refreshToken, SECRET_KEY, algorithms=[ALGORITHM_JWT]
         )
         if payload.get("type") != "refresh":
              raise HTTPException(status_code=401, detail="Invalid token type")
@@ -18,6 +15,17 @@ def verify_refresh_token(refreshToken: str):
         raise HTTPException(status_code=401, detail="Refresh token expired")
     except jwt.InvalidTokenError:
         raise HTTPException(status_code=401, detail="Invalid refresh token")
+    
+def verify_access_token(accessToken: str):
+    try:
+        payload = jwt.decode(accessToken, SECRET_KEY, algorithms=[ALGORITHM_JWT])
+        if payload.get("type") != "access":
+            raise HTTPException(status_code=401, detail="Invalid token type")
+        return payload
+    except jwt.ExpiredSignatureError:
+        raise HTTPException(status_code=401, detail="Access token expired")
+    except jwt.JWTError:
+        raise HTTPException(status_code=401, detail="Invalid access token")
 
 def create_access_token(data: dict):
     to_encode = data.copy()

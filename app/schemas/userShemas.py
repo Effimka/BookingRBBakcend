@@ -20,3 +20,7 @@ class UserOutWithToken(BaseModel):
     userBaseData: UserOut
     accessToken: str
 
+class UserUpdatePersonalData(BaseModel):
+    viewname: Optional[str]
+    email: str
+    phone_number: Optional[str]
