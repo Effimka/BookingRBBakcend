@@ -21,11 +21,15 @@ class AgentPartnerCreate(BaseModel):
         from_attributes = True
 
 class PartnerCreate(BaseModel):
-    phone_number: List[str]
+    phone_number: list[str]
     lawcode: int
+    agent_role_code: int
+    email: str
+    password: str
+    last_name: str
+    first_name: str
     data_registration: date
-    agentPartnerCreateBaseData: AgentPartnerCreate
-
+    
     class Config:
         from_attributes = True
 

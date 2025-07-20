@@ -8,8 +8,9 @@ from Common.CommonToken import setResponseRefreshToken
 
 router = APIRouter()
 
-@router.post("/register-parthner", response_model=AgentPartnerOutWhitToken)
+@router.post("/register-partner", response_model=AgentPartnerOutWhitToken)
 async def create_partner_api(user: PartnerCreate, response: Response, db: AsyncSession  = Depends(get_db)):
+    print(user)
     userId, userOutData = await create_partner_with_agent(user, db)
     accesToken = create_access_token(data={"sub":str(userId)})
     refreshToken = create_refresh_token(data={"sub":str(userId)})

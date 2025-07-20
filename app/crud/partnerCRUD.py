@@ -1,8 +1,8 @@
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.exc import IntegrityError
 from fastapi import HTTPException
-from models import Partner, AgentPartner
-from schemas import PartnerCreate, AgentPartnerOut
+from models.partnerModel import Partner, AgentPartner
+from schemas.partnerShemas import PartnerCreate, AgentPartnerOut
 
 async def create_partner_with_agent(partner_data: PartnerCreate, db: AsyncSession):
     try:
