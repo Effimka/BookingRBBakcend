@@ -1,7 +1,7 @@
 from pydantic import BaseModel, EmailStr
 from typing import Optional
 
-class UserCreate(BaseModel):
+class UserIn(BaseModel):
     email: str
     password: str
     
@@ -20,3 +20,7 @@ class UserOutWithToken(BaseModel):
     userBaseData: UserOut
     accessToken: str
 
+class UserUpdatePersonalData(BaseModel):
+    viewname: Optional[str]
+    email: Optional[str]
+    phone_number: Optional[str]
