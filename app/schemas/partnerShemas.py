@@ -45,3 +45,11 @@ class AgentPartnerOut(BaseModel):
 class AgentPartnerOutWhitToken(BaseModel):
     agentPartnerBaseData: AgentPartnerOut
     accessToken: str
+
+class AgentPartnerLogin(BaseModel):
+    email: str
+    password: str
+    class Config:
+        from_attributes = True
+
+
